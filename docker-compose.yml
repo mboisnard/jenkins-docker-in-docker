@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 
 volumes:
   jenkins-data-volume:
@@ -7,6 +7,11 @@ services:
   jenkins:
     build:
       context: ./jenkins
+      args:
+        proxyHost: ${HTTP_PROXY_HOST}
+        proxyPort: ${HTTP_PROXY_PORT}
+        nexusLogin: ${NEXUS_LOGIN}
+        nexusPass: ${NEXUS_PASSWD}
     image: company/jenkins:latest
     restart: always
     volumes:
