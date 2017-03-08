@@ -5,8 +5,8 @@ ARG PROXY_PORT
 ARG NEXUS_LOGIN
 ARG NEXUS_PASSWD
 
-#ENV http_proxy "http://$PROXY_HOST:$PROXY_PORT"
-#ENV https_proxy "http://$PROXY_HOST:$PROXY_PORT"
+ENV http_proxy "http://$PROXY_HOST:$PROXY_PORT"
+ENV https_proxy "http://$PROXY_HOST:$PROXY_PORT"
 
 ENV JENKINS_HOME /var/jenkins_home
 ENV DOCKER_INSTALL_VERSION 1.12.6-0~debian-jessie
@@ -48,7 +48,7 @@ RUN /usr/local/bin/install-plugins.sh $(cat /usr/share/jenkins/plugins.txt | tr 
 COPY config/properties/ /usr/share/jenkins/ref/
 RUN find /usr/share/jenkins/ref/ -type f -print0 | xargs -0 sed -i "s/{HTTP_PROXY_HOST}/$PROXY_HOST/g; s/{HTTP_PROXY_PORT}/$PROXY_PORT/g; s/{NEXUS_LOGIN}/$NEXUS_LOGIN/g; s/{NEXUS_PASSWD}/$NEXUS_PASSWD/g"
 
-# Update Jenkins Launcher for Java Proxy Option
+# Update Jenkins Launcher with JVM Proxy Options
 RUN mv /usr/share/jenkins/ref/jenkins.sh /usr/local/bin/jenkins.sh
 
 RUN chown jenkins /usr/local/bin/jenkins.sh
