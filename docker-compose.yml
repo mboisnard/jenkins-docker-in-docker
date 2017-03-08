@@ -8,10 +8,10 @@ services:
     build:
       context: ./jenkins
       args:
-        proxyHost: ${HTTP_PROXY_HOST}
-        proxyPort: ${HTTP_PROXY_PORT}
-        nexusLogin: ${NEXUS_LOGIN}
-        nexusPass: ${NEXUS_PASSWD}
+        PROXY_HOST: ${HTTP_PROXY_HOST}
+        PROXY_PORT: ${HTTP_PROXY_PORT}
+        NEXUS_LOGIN: ${NEXUS_LOGIN}
+        NEXUS_PASSWD: ${NEXUS_PASSWD}
     image: company/jenkins:latest
     restart: always
     volumes:

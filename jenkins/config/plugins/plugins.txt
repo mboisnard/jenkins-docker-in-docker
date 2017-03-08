@@ -82,7 +82,6 @@ workflow-scm-step
 mattermost
 liquibase-runner
 ws-cleanup
-pipeline-npm
 build-with-parameters
 ssh-credentials
 nodejs

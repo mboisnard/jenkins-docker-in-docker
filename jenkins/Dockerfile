@@ -1,12 +1,12 @@
 FROM jenkins:latest
 
-ARG proxyHost
-ARG proxyPort
-ARG nexusLogin
-ARG nexusPass
+ARG PROXY_HOST
+ARG PROXY_PORT
+ARG NEXUS_LOGIN
+ARG NEXUS_PASSWD
 
-#ENV http_proxy "http://$proxyHost:$proxyPort"
-#ENV https_proxy "http://$proxyHost:$proxyPort"
+#ENV http_proxy "http://$PROXY_HOST:$PROXY_PORT"
+#ENV https_proxy "http://$PROXY_HOST:$PROXY_PORT"
 
 ENV JENKINS_HOME /var/jenkins_home
 ENV DOCKER_INSTALL_VERSION 1.12.6-0~debian-jessie
@@ -46,7 +46,7 @@ RUN /usr/local/bin/install-plugins.sh $(cat /usr/share/jenkins/plugins.txt | tr 
 
 # Copy default properties
 COPY config/properties/ /usr/share/jenkins/ref/
-RUN find /usr/share/jenkins/ref/ -type f -print0 | xargs -0 sed -i 's/{HTTP_PROXY_HOST}/$proxyHost/g; s/{HTTP_PROXY_PORT}/$proxyPort/g; s/{NEXUS_LOGIN}/$nexusLogin/g; s/{NEXUS_PASSWD}/$nexusPass/g'
+RUN find /usr/share/jenkins/ref/ -type f -print0 | xargs -0 sed -i "s/{HTTP_PROXY_HOST}/$PROXY_HOST/g; s/{HTTP_PROXY_PORT}/$PROXY_PORT/g; s/{NEXUS_LOGIN}/$NEXUS_LOGIN/g; s/{NEXUS_PASSWD}/$NEXUS_PASSWD/g"
 
 # Update Jenkins Launcher for Java Proxy Option
 RUN mv /usr/share/jenkins/ref/jenkins.sh /usr/local/bin/jenkins.sh
