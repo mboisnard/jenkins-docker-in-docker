@@ -1,7 +1,7 @@
 FROM jenkins:latest
 
-ENV HTTP_PROXY "http://proxy.company.com:8080"
-ENV HTTPS_PROXY "http://proxy.company.com:8080"
+#ENV HTTP_PROXY "http://proxy.company.com:8080"
+#ENV HTTPS_PROXY "http://proxy.company.com:8080"
 ENV JENKINS_HOME /var/jenkins_home
 ENV DOCKER_INSTALL_VERSION 1.12.6-0~debian-jessie
 ENV DOCKER_REMOTE_API_PORT 4243
@@ -41,6 +41,10 @@ RUN /usr/local/bin/install-plugins.sh $(cat /usr/share/jenkins/plugins.txt | tr 
 # Copy default properties
 COPY config/properties/ /usr/share/jenkins/ref/
 
+# Update jenkins launcher for Java Proxy Option
+COPY config/jenkins.sh /usr/local/bin/jenkins.sh
+
+RUN chown jenkins /usr/local/bin/jenkins.sh
 RUN chown -R jenkins /usr/share/jenkins/ref
 
 USER jenkins

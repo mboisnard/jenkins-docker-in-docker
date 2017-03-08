@@ -1,7 +1,7 @@
 import jenkins.model.*
 
-def proxyUrl 	= "proxy.company.com"
-def proxyPort 	= 8080
+def proxyUrl 	= "{HTTP_PROXY_HOST}"
+def proxyPort 	= {HTTP_PROXY_PORT}
 
 def instance = Jenkins.getInstance()
 
