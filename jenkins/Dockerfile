@@ -48,10 +48,11 @@ RUN /usr/local/bin/install-plugins.sh $(cat /usr/share/jenkins/plugins.txt | tr 
 COPY config/properties/ /usr/share/jenkins/ref/
 RUN find /usr/share/jenkins/ref/ -type f -print0 | xargs -0 sed -i "s/{HTTP_PROXY_HOST}/$PROXY_HOST/g; s/{HTTP_PROXY_PORT}/$PROXY_PORT/g; s/{NEXUS_LOGIN}/$NEXUS_LOGIN/g; s/{NEXUS_PASSWD}/$NEXUS_PASSWD/g"
 
+RUN chown -R jenkins /usr/share/jenkins/ref
+
 # Update Jenkins Launcher with JVM Proxy Options
 RUN mv /usr/share/jenkins/ref/jenkins.sh /usr/local/bin/jenkins.sh
 
-RUN chown jenkins /usr/local/bin/jenkins.sh
-RUN chown -R jenkins /usr/share/jenkins/ref
+RUN mv /usr/share/jenkins/ref/docker-compose /usr/local/bin/docker-compose
 
 USER jenkins
