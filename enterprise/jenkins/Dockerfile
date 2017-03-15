@@ -9,7 +9,7 @@ ENV http_proxy "http://$PROXY_HOST:$PROXY_PORT"
 ENV https_proxy "http://$PROXY_HOST:$PROXY_PORT"
 
 ENV JENKINS_HOME /var/jenkins_home
-ENV DOCKER_INSTALL_VERSION 1.12.6-0~debian-jessie
+ENV DOCKER_INSTALL_VERSION 17.03.0~ce-0~debian-jessie
 ENV DOCKER_REMOTE_API_PORT 4243
 ENV TERM linux
 
@@ -50,9 +50,8 @@ RUN find /usr/share/jenkins/ref/ -type f -print0 | xargs -0 sed -i "s/{HTTP_PROX
 
 RUN chown -R jenkins /usr/share/jenkins/ref
 
-# Update Jenkins Launcher with JVM Proxy Options
+# Update Jenkins Launcher with JVM Proxy Options and Add docker-compose
 RUN mv /usr/share/jenkins/ref/jenkins.sh /usr/local/bin/jenkins.sh
-
 RUN mv /usr/share/jenkins/ref/docker-compose /usr/local/bin/docker-compose
 
 USER jenkins
